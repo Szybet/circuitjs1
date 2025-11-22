@@ -45,7 +45,6 @@ public abstract class CircuitElm implements Editable {
     static public Color whiteColor, lightGrayColor, selectColor;
     static public Color positiveColor, negativeColor, neutralColor, currentColor;
     static Font unitsFont;
-
     static NumberFormat showFormat, shortFormat, fixedFormat;
     static final double pi = 3.14159265358979323846;
     static CircuitElm mouseElmRef = null;
@@ -110,7 +109,7 @@ public abstract class CircuitElm implements Editable {
     boolean hasFlag(int f) { return (flags & f) != 0; }
     
     static void initClass(CirSim s) {
-	unitsFont = new Font("SansSerif", 0, 12);
+	unitsFont = new Font("SansSerif", 0, 30);
 	sim = s;
 	
 	colorScale = new Color[colorScaleCount];
@@ -121,7 +120,7 @@ public abstract class CircuitElm implements Editable {
 	
 	Storage stor = Storage.getLocalStorageIfSupported();
 	decimalDigits = 3;
-	shortDecimalDigits = 1;
+	shortDecimalDigits = 3;
 	if (stor != null) {
 	    String s1 = stor.getItem("decimalDigits");
 	    String s2 = stor.getItem("decimalDigitsShort");

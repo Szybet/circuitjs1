@@ -186,6 +186,7 @@ class ScopePlot {
 
 class Scope {
     final int FLAG_YELM = 32;
+    final double TEXT_Y_MULTIPLIER = 2.3;
     
     // bunch of other flags go here, see getFlags()
     final int FLAG_IVALUE = 2048; // Flag to indicate if IVALUE is included in dump
@@ -833,7 +834,7 @@ class Scope {
     		    g.drawLine(0, (int)(gridPx*i)+rect.height/2,rect.width, (int)(gridPx*i)+rect.height/2);
     	    }
     	}
-	textY=10;
+	    	textY = (int) (10 * TEXT_Y_MULTIPLIER);
 	g.setColor(CircuitElm.whiteColor);
     	if (text != null) {
     	    drawInfoText(g, text);
@@ -1349,8 +1350,7 @@ class Scope {
 	g.setColor(CircuitElm.whiteColor);
 	for (i = 0; i != ct; i++) {
 	    int w=(int)g.context.measureText(info[i]).getWidth();
-	    g.drawString(info[i], bx-w/2, rect.y-2-(ct-1-i)*15);
-	}
+	    	g.drawString(info[i], bx-w/2, rect.y - (int)(2 * TEXT_Y_MULTIPLIER) - (ct-1-i) * (int)(15 * TEXT_Y_MULTIPLIER));	}
 	
     }
 
@@ -1438,7 +1438,7 @@ class Scope {
         	    	drawInfoText(g, "H="+CircuitElm.getUnitText(gridStepX, "s")+"/div" + vScaleText);
         	    }
     	    }  else {
-    		if (rect.y + rect.height <= textY+5)
+    		if (rect.y + rect.height <= textY + (int)(5 * TEXT_Y_MULTIPLIER))
     		    return;
     		double x = 0;
     		String hs = "H="+CircuitElm.getUnitText(gridStepX, "s")+"/div";
@@ -1453,19 +1453,19 @@ class Scope {
     			double vScaleWidth=g.measureWidth(vScaleText);
     			if (x+bulletWidth+vScaleWidth > rect.width) {
     			    x=0;
-    			    textY += 15;
-    			    if (rect.y + rect.height <= textY+5)
+    			    textY += (int) (15 * TEXT_Y_MULTIPLIER);
+    			    if (rect.y + rect.height <= textY + (int)(5 * TEXT_Y_MULTIPLIER))
     	    		    	return;
     			}
     			g.setColor(p.color);
-    			g.fillOval((int)x+7, textY-9, 8, 8);
+    			g.fillOval((int)x+7, textY - (int) (9 * TEXT_Y_MULTIPLIER), 8, 8);
     			x+=bulletWidth;
     			g.setColor(CircuitElm.whiteColor);
     			g.drawString(vScaleText, (int)x, textY);
     			x+=vScaleWidth;
     		    }
     		}
-    		textY += 15;
+    		textY += (int) (15 * TEXT_Y_MULTIPLIER);
     	    }
 
 	
@@ -1657,15 +1657,15 @@ class Scope {
     int textY;
     
     void drawInfoText(Graphics g, String text) {
-	if (rect.y + rect.height <= textY+5)
+	if (rect.y + rect.height <= textY + (int)(5 * TEXT_Y_MULTIPLIER))
 	    return;
 	g.drawString(text, 0, textY);
-	textY += 15;
+	textY += (int) (15 * TEXT_Y_MULTIPLIER);
     }
     
     void drawInfoTexts(Graphics g) {
     	g.setColor(CircuitElm.whiteColor);
-    	textY = 10;
+    	textY = (int) (10 * TEXT_Y_MULTIPLIER);
     	
     	if (visiblePlots.size() == 0) {
     	    if (showElmInfo)
